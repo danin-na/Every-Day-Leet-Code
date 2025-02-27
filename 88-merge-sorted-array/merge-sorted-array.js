@@ -1,33 +1,46 @@
-const merge = function(nums1, m, nums2, n) {
-    // Copy the first m elements of nums1 to a temporary array.
-    const temp = nums1.slice(0, m);
-    let i = 0; // Pointer for temp array (original nums1)
-    let j = 0; // Pointer for nums2
-    let k = 0; // Pointer for nums1 (destination)
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
 
-    // Merge the two arrays back into nums1.
+const merge = function(nums1, m, nums2, n) {
+
+    let sort = new Array(m+n).fill(0);
+    let sort_index = 0
+    let i = 0, j = 0;
+    
     while (i < m && j < n) {
-        if (temp[i] <= nums2[j]) {
-            nums1[k] = temp[i];
+        if (nums1[i] <= nums2[j]) {
+            sort[sort_index] = nums1[i];
             i++;
         } else {
-            nums1[k] = nums2[j];
+            sort[sort_index] = nums2[j];
             j++;
         }
-        k++;
+        sort_index++;
     }
 
-    // If there are any remaining elements in temp, copy them.
+    // Append any remaining elements from nums1
     while (i < m) {
-        nums1[k] = temp[i];
+        sort[sort_index] = nums1[i];
         i++;
-        k++;
+        sort_index++;
     }
 
-    // If there are any remaining elements in nums2, copy them.
+    // Append any remaining elements from nums2
     while (j < n) {
-        nums1[k] = nums2[j];
+        sort[sort_index] = nums2[j];
         j++;
-        k++;
+        sort_index++;
+    }
+
+    console.log(sort)
+
+    // Copy sorted array back into nums1 in-place
+    for (let k = 0; k < m + n; k++) {
+        nums1[k] = sort[k];
     }
 };
