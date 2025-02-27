@@ -1,25 +1,17 @@
 const merge = function(nums1, m, nums2, n) {
-  let i = m - 1;          // Pointer for the end of the valid part of nums1
-  let j = n - 1;          // Pointer for the end of nums2
-  let k = m + n - 1;      // Pointer for the end of nums1 (full array)
+    let i = m - 1;          // Pointer for nums1's elements
+    let j = n - 1;          // Pointer for nums2's elements
+    let k = m + n - 1;      // Pointer for the last position in nums1
 
-  // While both arrays have elements to compare
-  while (i >= 0 && j >= 0) {
-    if (nums1[i] > nums2[j]) {
-      nums1[k] = nums1[i];
-      i--;
-    } else {
-      nums1[k] = nums2[j];
-      j--;
+    // Iterate until all elements from nums2 are placed in nums1
+    while (j >= 0) {
+        if (i >= 0 && nums1[i] > nums2[j]) {
+            nums1[k] = nums1[i];
+            i--;
+        } else {
+            nums1[k] = nums2[j];
+            j--;
+        }
+        k--;
     }
-    k--;
-  }
-
-  // If there are any remaining elements in nums2, copy them over.
-  // (No need to do this for nums1 because they are already in place.)
-  while (j >= 0) {
-    nums1[k] = nums2[j];
-    j--;
-    k--;
-  }
 };
