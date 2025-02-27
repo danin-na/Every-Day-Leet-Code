@@ -1,17 +1,33 @@
 const merge = function(nums1, m, nums2, n) {
-    let i = m - 1;       // Last element in the initial part of nums1
-    let j = n - 1;       // Last element in nums2
-    let k = m + n - 1;   // Last position in nums1
+    // Copy the first m elements of nums1 to a temporary array.
+    const temp = nums1.slice(0, m);
+    let i = 0; // Pointer for temp array (original nums1)
+    let j = 0; // Pointer for nums2
+    let k = 0; // Pointer for nums1 (destination)
 
-    // Merge nums2 into nums1 starting from the end
-    while (j >= 0) {
-        if (i >= 0 && nums1[i] > nums2[j]) {
-            nums1[k] = nums1[i];
-            i--;
+    // Merge the two arrays back into nums1.
+    while (i < m && j < n) {
+        if (temp[i] <= nums2[j]) {
+            nums1[k] = temp[i];
+            i++;
         } else {
             nums1[k] = nums2[j];
-            j--;
+            j++;
         }
-        k--;
+        k++;
+    }
+
+    // If there are any remaining elements in temp, copy them.
+    while (i < m) {
+        nums1[k] = temp[i];
+        i++;
+        k++;
+    }
+
+    // If there are any remaining elements in nums2, copy them.
+    while (j < n) {
+        nums1[k] = nums2[j];
+        j++;
+        k++;
     }
 };
